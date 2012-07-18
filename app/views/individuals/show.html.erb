@@ -1,0 +1,34 @@
+<div class = "name">Name: <%= @individual.id %></div>
+<div class = "bitstring">Bit String: <% @individual.bits.each do |bit| concat bit end %></div>
+<div class = "fitness">Global Fitness: <%= @individual.global_fitness %></div>
+<div class = "created">Generation Created: <%= @individual.generation_created %></div>                                      
+  <% if @individual.respond_to? "generation_reaped" %>
+    <div class = "reaped">Generation Reaped: <%= @individual.generation_reaped %></div>
+  <% end %>
+<div class = "experiment"><%= link_to "Experiment", experiment_path(@individual.experiment_id) %></div>
+<div class = "run"><%= link_to "Run " + @individual.run_number.to_s, run_path(@individual.run) %></div>
+
+<h2>Parents</h2>
+<div class = "parent_a"><%= link_to "Parent A", individual_path(@individual.parent_a) if @individual.respond_to? 'parent_a' %></div>
+<div class = "parent_b"><%= link_to "Parent B", individual_path(@individual.parent_b) if @individual.respond_to? 'parent_b' %></div>
+<div class = "mutated_from"><%= link_to "Mutated From", individual_path(@individual.mutated_from) if @individual.respond_to? 'mutated_from' %></div>
+<h2>Children</h2>
+<ul class = "children">
+  <% @individual.children.each do |child| %>
+    <li class = "child">
+      <%= link_to child.id, individual_path(child.id) %>
+    </li>
+  <% end %>
+</ul>
+<h2>Movements</h2>
+<% if @individual.respond_to? "moved" %>
+  <ul class = "movements">
+    <% @individual.moved.each do |move| %>
+      <li class = "movement">
+        <div class = "from">Generation Moved: <%= move["moved_generation"] %></div>
+        <div class = "from">Moved From: <%= move["moved_from"] %></div>
+        <div class = "to">Moved To: <%= move["moved_to"] %></div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

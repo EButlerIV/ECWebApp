@@ -1,0 +1,18 @@
+defaults: &defaults
+  host: walle
+  port: 27017
+
+development:
+  <<: *defaults
+  database: ecdb
+
+test:
+  <<: *defaults
+  database: ecwebapp_test
+
+# set these environment variables on your prod server
+production:
+  <<: *defaults
+  database: ecwebapp
+  username: <%= ENV['MONGO_USERNAME'] %>
+  password: <%= ENV['MONGO_PASSWORD'] %>

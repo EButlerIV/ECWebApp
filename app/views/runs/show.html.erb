@@ -1,0 +1,14 @@
+<div class = "experiment">
+  Run <%= @run.run_number %> of experiment 
+  <%= link_to @run.experiment_id, experiment_path(@run.experiment_id) %>
+</div>
+<div class = "run_result">Result: <%= @run.run_result %></div>
+<div class = "end_generation">Number of generations: <%= @run.end_generation %></div>
+<div class = "start_time"><%= Time.at(@run.start_time/1000) %></div>
+<div class = "end_time"><%= Time.at(@run.end_time/1000) %></div>
+<h2>Unsolved Clauses</h2>
+<ul class = "unsolved_clauses">
+  <% @run.unsolved_clauses.each do |clause| %>
+    <li><%= clause %></li>
+  <% end %>
+</ul>
